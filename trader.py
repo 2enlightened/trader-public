@@ -1,6 +1,6 @@
 from binance.client import Client
 
-# init
+# binance api
 api_key_Binance = 'geM8dY8xZG02nYuFVVpay2asDhGMhJn24sKTgLLH5isIBGtiAC5pp5pJ2CZIlHnp'
 api_secret_Binance = 'geM8dY8xZG02nYuFVVpay2asDhGMhJn24sKTgLLH5isIBGtiAC5pp5pJ2CZIlHnp'
 
@@ -8,30 +8,32 @@ api_secret_Binance = 'geM8dY8xZG02nYuFVVpay2asDhGMhJn24sKTgLLH5isIBGtiAC5pp5pJ2C
 #api_secret_Coinbase = 'TJghP58m2smAYXim5G4miXCF3rG2pxms'
 
 client = Client(api_key_Binance, api_secret_Binance)
+pair = input("Zadej pair napr BTCUSDT: ")
 t = True
 ## main
 while t:
-    ## get lates data Binance
-    btc_price = client.get_symbol_ticker(symbol='BTCUSDT')
-    eth_price = client.get_symbol_ticker(symbol='ETHUSDT')
-    btc = btc_price['price']
-    eth = eth_price['price']
-    avg_price_BTC = client.get_avg_price(symbol='BTCUSDT')
-    avg_price_BTC = avg_price_BTC['price']
-    avg_price_ETH = client.get_avg_price(symbol='ETHUSDT')
-    avg_price_ETH = avg_price_ETH['price']
-# print just the price
-    if btc < avg_price_BTC:
-        print("nad BTC")
-        print("BTC: ",btc,"AVG BTC: ",avg_price_BTC)
-    else:
-        print("pod BTC")
-        print("BTC: ",btc,"AVG BTC: ",avg_price_BTC)
+    ##data Binance
+    data = client.get_ticker(symbol=pair)
+    #cena
+    price = client.get_symbol_ticker(symbol=pair)
+    price = price['price']
+    #průměrná cena za 24h
+    avg_price = client.get_avg_price(symbol=pair)
+    avg_price = avg_price['price']
+    #objem trhu
+    volume = data['volume']
+    #nejvyšší hodnota za 24 hodin
+    high = data['highPrice']
+    #nejnižší hodnota za 24 hodin
+    low = data['lowPrice']
+    #% změna 24h
+    percent = data['priceChangePercent']
+    #změna ceny 24h
+    changePrice = data['priceChange']
 
-    if btc < avg_price_ETH:
-        print("nad ETH")
-        print("ETH: ",eth,"AVG ETH: ",avg_price_ETH)
+    #tisk barveně podle vetší nebo menší než 24h průměr
+    if price > avg_price:
+        print("\033[32m {}: {} AVG: {} percent: {} changePrice: {} high: {} low: {} volume: {}\033[0m".format(pair,price,avg_price,percent,changePrice,high,low,volume))
     else:
-        print("pod ETH")
-        print("ETH: ",eth,"AVG ETH: ",avg_price_ETH)
+        print("\033[31m {}: {} AVG: {} percent: {} changePrice: {} high: {} low: {} volume: {}\033[40m".format(pair,price,avg_price,percent,changePrice,high,low,volume))
     
