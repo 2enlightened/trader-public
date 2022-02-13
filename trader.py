@@ -14,26 +14,10 @@ t = True
 while t:
     ##data Binance
     data = client.get_ticker(symbol=pair)
-    #cena
-    price = client.get_symbol_ticker(symbol=pair)
-    price = price['price']
-    #průměrná cena za 24h
-    avg_price = client.get_avg_price(symbol=pair)
-    avg_price = avg_price['price']
-    #objem trhu
-    volume = data['volume']
-    #nejvyšší hodnota za 24 hodin
-    high = data['highPrice']
-    #nejnižší hodnota za 24 hodin
-    low = data['lowPrice']
-    #% změna 24h
-    percent = data['priceChangePercent']
-    #změna ceny 24h
-    changePrice = data['priceChange']
-
-    #tisk barveně podle vetší nebo menší než 24h průměr
+    price = data['lastPrice']
+    avg_price = data['weightedAvgPrice']
+    data = pd.DataFrame({'symbol': pair, 'price': data['lastPrice'], 'AVG': data['weightedAvgPrice'],'priceChange': data['priceChange'], '%': data['priceChangePercent'], 'LOW': data['lowPrice'], 'HIGH': data['highPrice'], 'VOLUME': data['volume'] }, index=[0])
     if price > avg_price:
-        print("\033[32m {}: {} AVG: {} percent: {} changePrice: {} high: {} low: {} volume: {}\033[0m".format(pair,price,avg_price,percent,changePrice,high,low,volume))
+        print("\033[32m {} \033[0m".format(data))
     else:
-        print("\033[31m {}: {} AVG: {} percent: {} changePrice: {} high: {} low: {} volume: {}\033[40m".format(pair,price,avg_price,percent,changePrice,high,low,volume))
-    
+        print("\033[31m {} \033[40m".format(data))  
