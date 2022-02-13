@@ -8,7 +8,7 @@ api_secret_Binance = 'geM8dY8xZG02nYuFVVpay2asDhGMhJn24sKTgLLH5isIBGtiAC5pp5pJ2C
 #api_secret_Coinbase = 'TJghP58m2smAYXim5G4miXCF3rG2pxms'
 
 client = Client(api_key_Binance, api_secret_Binance)
-t = TRUE
+t = True
 ## main
 while t:
     ## get lates data Binance
