@@ -17,6 +17,21 @@ while t:
     btc = btc_price['price']
     eth = eth_price['price']
     avg_price_BTC = client.get_avg_price(symbol='BTCUSDT')
+    avg_price_BTC = avg_price_BTC['price']
     avg_price_ETH = client.get_avg_price(symbol='ETHUSDT')
+    avg_price_ETH = avg_price_ETH['price']
 # print just the price
-    print("BTC: ",btc, "ETH: ",eth,"AVG BTC: ",avg_price_BTC['price'],"AVG ETH: ",avg_price_ETH['price'])
+    if btc < avg_price_BTC:
+        print("nad BTC")
+        print("BTC: ",btc,"AVG BTC: ",avg_price_BTC)
+    else:
+        print("pod BTC")
+        print("BTC: ",btc,"AVG BTC: ",avg_price_BTC)
+
+    if btc < avg_price_ETH:
+        print("nad ETH")
+        print("ETH: ",eth,"AVG ETH: ",avg_price_ETH)
+    else:
+        print("pod ETH")
+        print("ETH: ",eth,"AVG ETH: ",avg_price_ETH)
+    
