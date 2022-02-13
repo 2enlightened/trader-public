@@ -16,5 +16,7 @@ while t:
     eth_price = client.get_symbol_ticker(symbol='ETHUSDT')
     btc = btc_price['price']
     eth = eth_price['price']
+    avg_price_BTC = client.get_avg_price(symbol='BTCUSDT')
+    avg_price_ETH = client.get_avg_price(symbol='ETHUSDT')
 # print just the price
-    print("BTC: ",btc, "ETH: ",eth)
+    print("BTC: ",btc, "ETH: ",eth,"AVG BTC: ",avg_price_BTC['price'],"AVG ETH: ",avg_price_ETH['price'])
