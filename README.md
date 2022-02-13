@@ -1,4 +1,10 @@
 # trader-public
-implementováno - lates price
+implementováno 
+  - lates price
+  - avg price 24h
 
-1 jaká strategie
+to do 
+  - nejnižší hodnota za 24
+  - nejnižší hodnota za 24
+  - objem trhu
+  - RSI
